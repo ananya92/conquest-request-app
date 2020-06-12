@@ -1,20 +1,81 @@
+/* Style app name with hand cursor on hover */
 .headLine {
     cursor: pointer;
 }
 
+/* Hide the success and failure message components by default */
 #successOutcome, .failureMsg {
     display: none;
 }
 
-.validName, .validDetail, #failureMsg {
+/* Red small font for error messages */
+.validName, .validDetail, .validOrg, #failureMsg {
     font-size: small;
     color: red;
 }
 
+/* Small font for success upload message */
 .validUpload {
     font-size: small;
 }
 
+/* Green font for success messages */
 #successMsg, .validUpload {
     color: rgb(46, 170, 46);
 }
+
+/* Remove default bullets */
+ul, #orgUL {
+    list-style-type: none;
+  }
+  
+  /* Remove margins and padding from the parent ul */
+  #orgUL {
+    margin: 0;
+    padding: 0;
+  }
+  
+  /* Style the caret/arrow */
+  .caret {
+    cursor: pointer;
+    user-select: none; /* Prevent text selection */
+  }
+  
+  /* Create the caret/arrow with a unicode, and style it */
+  .caret::before {
+    content: "\25B6";
+    color: black;
+    display: inline-block;
+    margin-right: 6px;
+  }
+  
+  /* Rotate the caret/arrow icon when clicked on (using JavaScript) */
+  .caret-down::before {
+    transform: rotate(90deg);
+  }
+  
+  /* Hide the nested list */
+  .nested {
+    display: none;
+  }
+  
+  /* Show the nested list when the user clicks on the caret/arrow (with JavaScript) */
+  .active {
+    display: block;
+  }
+
+  /* Set default org background when not selected */
+  .orgOption {
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  /* Style selected organisation */
+  .selectedOption {
+      background-color: #007bff;
+      color: white;
+      padding: 2px;
+      border-radius: 2px;
+  }
