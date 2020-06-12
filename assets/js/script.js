@@ -102,6 +102,7 @@ $(".submitButton").on("click", function (event) {
                 $("#successOutcome").attr("style", "display: block");
                 // Add the ArqID to the data-ArqID attribute of the attach image button so an image can be attached to a request with this ArqID
                 $("#attachButton").attr("data-ArqID", response.ArqID);
+                $("#staticId").val(response.ArqID);
                 $("#staticName").val(response.Record.RequestorName);
                 $("#staticDetails").val(response.Record.RequestDetail);
                 $("#staticOrganisation").val(organisationUnit[0].ObjectName);

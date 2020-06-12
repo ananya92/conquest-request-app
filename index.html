@@ -21,6 +21,12 @@
                         <h4 id="successMsg">Successfully created request.</h4>
                         <form id="updateRequest">
                             <div class="form-group row">
+                                <label for="staticId" class="col-sm-3 col-form-label">Request ID:</label>
+                                <div class="col-sm-9">
+                                    <input type="text" readonly class="form-control-plaintext" id="staticId">
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label for="staticName" class="col-sm-3 col-form-label">Requestor Name:</label>
                                 <div class="col-sm-9">
                                     <input type="text" readonly class="form-control-plaintext" id="staticName">
@@ -29,7 +35,7 @@
                             <div class="form-group row">
                                 <label for="staticDetails" class="col-sm-3 col-form-label">Request Details:</label>
                                 <div class="col-sm-9">
-                                    <input type="text" readonly class="form-control-plaintext" id="staticDetails">
+                                    <textarea readonly class="form-control-plaintext" id="staticDetails"></textarea>
                                 </div>
                             </div>
                             <div class="form-group row">
