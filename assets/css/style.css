@@ -1,3 +1,16 @@
 .headLine {
     cursor: pointer;
 }
+
+#successOutcome, .failureMsg {
+    display: none;
+}
+
+.validName, .validDetail, #failureMsg {
+    font-size: small;
+    color: red;
+}
+
+#successMsg {
+    color: rgb(46, 170, 46);
+}
