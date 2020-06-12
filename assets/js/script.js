@@ -32,7 +32,7 @@ $(".submitButton").on("click", function (event) {
             url: "https://developer-demo.australiaeast.cloudapp.azure.com/api/requests/create_request",
             data: JSON.stringify(params),
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer KJkxhob98MDAumDo+sNfBIc08Y=');
+                xhr.setRequestHeader('Authorization', 'Bearer EKJkxhob98MDAumDo+sNfBIc08Y=');
                 xhr.setRequestHeader('Accept', 'application/json');
             }
         }).then(function (response) {
@@ -60,18 +60,19 @@ $(".submitButton").on("click", function (event) {
     }
 });
 
-$("#attachButton").on("click", function(event) {
+$("#attachButton").on("click", function (event) {
     event.preventDefault();
-    var address = `file://conquest_documents/Request/${$("#attachButton").attr("data-ArqID")}/TestAddDocument.txt`;
+    var arqID = $("#attachButton").attr("data-ArqID");
+    var address = `file://conquest_documents/Request/${arqID}/TestAddDocument.jpg`;
     console.log(address);
     var addDocumentParams = {
         "Address": address,
-        "ContentType": "text/plain",
+        "ContentType": "image/jpeg",
         "CreateTime": new Date().toISOString(),
-        "DocumentDescription": "Test document",
+        "DocumentDescription": "Supporting image",
         "Hashes": null,
         "ObjectKey": {
-            "int32Value": response.ArqID,
+            "int32Value": arqID,
             "objectType": "ObjectType_Request"
         }
     };
@@ -85,7 +86,27 @@ $("#attachButton").on("click", function(event) {
         }
     }).then(function (response) {
         console.log(response);
+        var fd = new FormData();
+        var uploadFile = $('#file')[0].files[0];
+        fd.append('document', uploadFile);
 
+        $.ajax({
+            type: `${response.UploadMethod}`,
+            url: `https://developer-demo.australiaeast.cloudapp.azure.com${response.UploadUri}`,
+            data: fd,
+            contentType: false,
+            processData: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader('Authorization', 'Bearer EKJkxhob98MDAumDo+sNfBIc08Y=');
+                xhr.setRequestHeader('Accept', 'application/json');
+            }
+        }).then(function (response) {
+            console.log(response);
+            $(".validUpload").text("Successfully uploaded");
+        }).catch((error) => {
+            console.log(error);
+            setErrorMsg(error);
+        });
     }).catch((error) => {
         setErrorMsg(error);
     });
@@ -97,6 +118,9 @@ function setErrorMsg(error) {
     Error msg: ${error.responseJSON.message}`);
 }
 
+$("#file").on("click", function() {
+    $(".validUpload").text("");
+})
 $("#requestToggle").on("click", function (event) {
     $(".validDetail").text("");
     $(".validName").text("");
@@ -105,5 +129,6 @@ $("#requestToggle").on("click", function (event) {
     $("#failureMsg").text("");
     $("#failureMsg").attr("style", "display: none");
     $("#successOutcome").attr("style", "display: none");
+    $(".validUpload").text("");
 });
 

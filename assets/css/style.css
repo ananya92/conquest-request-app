@@ -11,6 +11,10 @@
     color: red;
 }
 
-#successMsg {
+.validUpload {
+    font-size: small;
+}
+
+#successMsg, .validUpload {
     color: rgb(46, 170, 46);
 }
