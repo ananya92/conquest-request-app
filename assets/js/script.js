@@ -29,10 +29,10 @@ $(".submitButton").on("click", function (event) {
         };
         $.ajax({
             type: "POST",
-            url: "https://developer-demo.australiaeast.cloudapp.azure.com/api/requests/create_request",
+            url: `${credentials.address}/api/requests/create_request`,
             data: JSON.stringify(params),
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer EKJkxhob98MDAumDo+sNfBIc08Y=');
+                xhr.setRequestHeader('Authorization', `Bearer ${credentials.access_token}`);
                 xhr.setRequestHeader('Accept', 'application/json');
             }
         }).then(function (response) {
@@ -40,9 +40,9 @@ $(".submitButton").on("click", function (event) {
             $('#newRequestForm').collapse('toggle');
             $.ajax({
                 type: "GET",
-                url: `https://developer-demo.australiaeast.cloudapp.azure.com/api/requests/${response}`,
+                url: `${credentials.address}/api/requests/${response}`,
                 beforeSend: function (xhr) {
-                    xhr.setRequestHeader('Authorization', 'Bearer EKJkxhob98MDAumDo+sNfBIc08Y=');
+                    xhr.setRequestHeader('Authorization', `Bearer ${credentials.access_token}`);
                     xhr.setRequestHeader('Accept', 'application/json');
                 }
             }).then(function (response) {
@@ -78,10 +78,10 @@ $("#attachButton").on("click", function (event) {
     };
     $.ajax({
         type: "POST",
-        url: `https://developer-demo.australiaeast.cloudapp.azure.com/api/documents/add_document`,
+        url: `${credentials.address}/api/documents/add_document`,
         data: JSON.stringify(addDocumentParams),
         beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', 'Bearer EKJkxhob98MDAumDo+sNfBIc08Y=');
+            xhr.setRequestHeader('Authorization', `Bearer ${credentials.access_token}`);
             xhr.setRequestHeader('Accept', 'application/json');
         }
     }).then(function (response) {
@@ -92,12 +92,12 @@ $("#attachButton").on("click", function (event) {
 
         $.ajax({
             type: `${response.UploadMethod}`,
-            url: `https://developer-demo.australiaeast.cloudapp.azure.com${response.UploadUri}`,
+            url: `${credentials.address}${response.UploadUri}`,
             data: fd,
             contentType: false,
             processData: false,
             beforeSend: function (xhr) {
-                xhr.setRequestHeader('Authorization', 'Bearer EKJkxhob98MDAumDo+sNfBIc08Y=');
+                xhr.setRequestHeader('Authorization', `Bearer ${credentials.access_token}`);
                 xhr.setRequestHeader('Accept', 'application/json');
             }
         }).then(function (response) {
