@@ -22,7 +22,7 @@ On loading the Conquest Request App home page, the user can -
 
  https://ananya92.github.io/conquest-request-app/
 
-## Application Screenshot
+## Application Screenshots
 ![Project Snapshot](https://github.com/ananya92/conquest-request-app/blob/master/assets/img/screenshot1.JPG)
 ***
 ![Project Snapshot](https://github.com/ananya92/conquest-request-app/blob/master/assets/img/screenshot2.JPG)
