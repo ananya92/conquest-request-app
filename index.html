@@ -18,41 +18,68 @@
     <div class="container-fluid">
         <div class="row">
             <div class="col">
-                <p>
+                <p style="margin-bottom: 0px;">
                     <a class="btn btn-primary" data-toggle="collapse" href="#newRequestForm" role="button"
-                        aria-expanded="false" aria-controls="newRequestForm">
+                        aria-expanded="false" aria-controls="newRequestForm" id="requestToggle">
                         Create new request
                     </a>
                 </p>
-                <div class="collapse" id="newRequestForm">
+                <div class="collapse show" id="newRequestForm">
                     <div class="card card-body">
                         <form>
                             <div class="form-group">
                                 <label for="requestorName">Requestor Name</label>
-                                <input type="text" class="form-control" id="requestorName">
+                                <input type="text" class="form-control" id="requestorName" required>
+                                <div class="validName"></div>
                             </div>
                             <div class="form-group">
                                 <label for="requestDetail">Request Details</label>
-                                <textarea class="form-control" id="requestDetail" rows="3"></textarea>
+                                <textarea class="form-control" id="requestDetail" rows="3" required></textarea>
+                                <div class="validDetail"></div>
                             </div>
-                            <button type="submit" class="btn btn-primary mb-2 submitButton">Create Request</button>
-                          </form>
+                            <button type="submit" class="btn btn-primary mb-2 submitButton">Create</button>
+                        </form>
                     </div>
+                </div>
+                <div class="card card-body" id="successOutcome">
+                    <h4 id="successMsg">Successfully created request.</h4>
+                    <form>
+                        <div class="form-group row">
+                            <label for="staticName" class="col-sm-3 col-form-label">Requestor Name:</label>
+                            <div class="col-sm-9">
+                                <input type="text" readonly class="form-control-plaintext" id="staticName">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="staticDetails" class="col-sm-3 col-form-label">Request Details:</label>
+                            <div class="col-sm-9">
+                                <input type="text" readonly class="form-control-plaintext" id="staticDetails">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="file" class="col-sm-3 col-form-label">Upload Document:</label>
+                            <div class="col-sm-9">
+                                <input type="file" class="form-control-file" id="file">
+                            </div>
+                        </div>
+                        <input type="button" class="btn btn-primary mb-2" id="attachButton" value="Upload"
+                            data-ArqID="">
+                    </form>
+                </div>
+                <div>
+                    <p id="failureMsg"></p>
                 </div>
             </div>
         </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-        crossorigin="anonymous"></script>
+    <script data-require="jquery" data-semver="3.1.1"
+        src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
         integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
-    <script data-require="jquery" data-semver="3.1.1"
-        src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
     <script src="assets/js/script.js"></script>
 </body>
 
