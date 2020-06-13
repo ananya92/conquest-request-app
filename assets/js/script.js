@@ -120,58 +120,67 @@ $(".submitButton").on("click", function (event) {
 // Attach image to request when the attachButton is clicked
 $("#attachButton").on("click", function (event) {
     event.preventDefault();
-    // Attach image to the request with ArqID which is saved in the data-ArdID attribute in the attachButton
-    var arqID = $("#attachButton").attr("data-ArqID");
-    var address = `file://conquest_documents/Request/${arqID}/TestAddDocument.jpg`;
-    var addDocumentParams = {
-        "Address": address,
-        "ContentType": "image/jpeg",
-        "CreateTime": new Date().toISOString(),
-        "DocumentDescription": "Supporting document",
-        "Hashes": null,
-        "ObjectKey": {
-            "int32Value": arqID,
-            "objectType": "ObjectType_Request"
-        }
-    };
-    // POST API call to add document to a request
-    $.ajax({
-        type: "POST",
-        url: `${credentials.address}/api/documents/add_document`,
-        data: JSON.stringify(addDocumentParams),
-        beforeSend: function (xhr) {
-            xhr.setRequestHeader('Authorization', `Bearer ${credentials.access_token}`);
-            xhr.setRequestHeader('Accept', 'application/json');
-        }
-    }).then(function (response) {
-        // Successfully created a document record which is returned in the response object
-        console.log(response);
-        // Upload image to the file input field
-        var fd = new FormData();
-        var uploadFile = $('#file')[0].files[0];
-        fd.append('document', uploadFile);
-
+    // Allow document addition only if user has selected an image
+    if ($('#file')[0].files.length > 0) {
+        // Attach image to the request with ArqID which is saved in the data-ArdID attribute in the attachButton
+        var arqID = $("#attachButton").attr("data-ArqID");
+        var address = `file://conquest_documents/Request/${arqID}/TestAddDocument.jpg`;
+        var addDocumentParams = {
+            "Address": address,
+            "ContentType": "image/jpeg",
+            "CreateTime": new Date().toISOString(),
+            "DocumentDescription": "Supporting document",
+            "Hashes": null,
+            "ObjectKey": {
+                "int32Value": arqID,
+                "objectType": "ObjectType_Request"
+            }
+        };
+        // POST API call to add document to a request
         $.ajax({
-            type: `${response.UploadMethod}`,
-            url: `${credentials.address}${response.UploadUri}`,
-            data: fd,
-            contentType: false,
-            processData: false,
+            type: "POST",
+            url: `${credentials.address}/api/documents/add_document`,
+            data: JSON.stringify(addDocumentParams),
             beforeSend: function (xhr) {
                 xhr.setRequestHeader('Authorization', `Bearer ${credentials.access_token}`);
                 xhr.setRequestHeader('Accept', 'application/json');
             }
         }).then(function (response) {
+            // Successfully created a document record which is returned in the response object
             console.log(response);
-            $(".validUpload").text("Successfully uploaded");
+            // Upload image to the file input field
+            var fd = new FormData();
+            var uploadFile = $('#file')[0].files[0];
+            fd.append('document', uploadFile);
+
+            $.ajax({
+                type: `${response.UploadMethod}`,
+                url: `${credentials.address}${response.UploadUri}`,
+                data: fd,
+                contentType: false,
+                processData: false,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader('Authorization', `Bearer ${credentials.access_token}`);
+                    xhr.setRequestHeader('Accept', 'application/json');
+                }
+            }).then(function (response) {
+                console.log(response);
+                $(".validUpload").text("Successfully uploaded");
+            }).catch((error) => {
+                // Set error message if the image upload fails
+                setErrorMsg(error);
+            });
         }).catch((error) => {
-            // Set error message if the image upload fails
+            // Set error message if the POST add document fails
             setErrorMsg(error);
         });
-    }).catch((error) => {
-        // Set error message if the POST add document fails
-        setErrorMsg(error);
-    });
+    }
+    // No image selected, throw error message to user to select an image
+    else {
+        $("#failureMsg").attr("style", "display: block");
+        $("#failureMsg").text(`Please select an image`);
+    }
+
 })
 
 // Function returning the map from the parent org name to array of child sub-organisations 
@@ -227,6 +236,7 @@ function setErrorMsg(error) {
 // Clear the validation message when new file is selected
 $("#file").on("click", function () {
     $(".validUpload").text("");
+    $("#failureMsg").text("");
 });
 
 // Reset the form values and validation messages when create request button is toggled
