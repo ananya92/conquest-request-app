@@ -10,6 +10,8 @@ On loading the Conquest Request App home page, the user can -
 
    * __Get result indications__ - The application does user input validations and prompts the success and error messages to the user for a seamless request creation and document upload process.
 
+The newly created request returns an "Action Request ID". The request can be viewed in the the Conquest app using the Find Tool by searching by its “Action Request ID”.
+
 ## Technologies Used
 
  * HTML5
